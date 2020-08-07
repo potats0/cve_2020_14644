@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cve_2020_14644:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/cve_2020_14644_jar</output-path>
+    <root id="archive" name="cve_2020_14644.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="cve_2020_14644" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/coherence.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/wlfullclient.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
