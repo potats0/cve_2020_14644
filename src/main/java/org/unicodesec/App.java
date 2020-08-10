@@ -34,7 +34,7 @@ public class App {
         String port = args[1];
         String command = args[2];
         Context iiopCtx = getInitialContext(host, port);
-        if (iiopCtx.lookup("UnicodeSec") == null) {
+        if (getRemoteObj(iiopCtx) == null) {
             ClassIdentity classIdentity = new ClassIdentity(org.unicodesec.test.class);
             ClassPool cp = ClassPool.getDefault();
             CtClass ctClass = cp.get(org.unicodesec.test.class.getName());
@@ -46,7 +46,7 @@ public class App {
             String bindName = "UnicodeSec" + System.nanoTime();
             iiopCtx.rebind(bindName, constructor);
         }
-        executeCmdFromWLC(command, iiopCtx);
+        executeCmdFromWLC(command, getRemoteObj(iiopCtx));
     }
 
     private static void printUsage() {
@@ -54,9 +54,8 @@ public class App {
         System.exit(-1);
     }
 
-    private static void executeCmdFromWLC(String command, Context iiopCtx) throws NamingException, RemoteException {
-        ClusterMasterRemote remote = (ClusterMasterRemote) iiopCtx.lookup("UnicodeSec");
-        String response = remote.getServerLocation(command);
+    private static void executeCmdFromWLC(String command, ClusterMasterRemote remoteObj) throws NamingException, RemoteException {
+        String response = remoteObj.getServerLocation(command);
         System.out.println(response);
     }
 
@@ -73,5 +72,13 @@ public class App {
         return "iiop://" + host + ":" + port;
     }
 
+    public static ClusterMasterRemote getRemoteObj(Context ctx){
+        try{
+            return (ClusterMasterRemote)ctx.lookup("UnicodeSec");
+        }catch (Exception e){
+            return null;
+        }
+
+    }
 
 }
